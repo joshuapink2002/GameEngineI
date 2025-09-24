@@ -1,11 +1,15 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Random = UnityEngine.Random;
 
 public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Transform originalParent;
     private CanvasGroup canvasGroup;
+    public float minDropDistance = 2f;
+    public float maxDropDistance = 2f;
 
     void Start()
     {
@@ -53,11 +57,50 @@ public class ItemDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         }
         else
         {
-            // 슬롯이 아니면 원래 위치로
-            transform.SetParent(originalParent);
+            //If where we're dropping is not within the inventory
+            if (!IsWithinInventory(eventData.position))
+            {
+                //Drop our item
+                DropItem(originalSlot);
+            }
+            else
+            {   
+                //Snap back to og slot
+                transform.SetParent(originalParent);
+            }
+
+                // 슬롯이 아니면 원래 위치로
+                transform.SetParent(originalParent);
         }
 
         // 슬롯 안에서 중앙 정렬
         GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
+    }
+
+    bool IsWithinInventory(Vector2 mousePosition)
+    {
+        RectTransform inventoryRect = originalParent.parent.GetComponent<RectTransform>();
+        return RectTransformUtility.RectangleContainsScreenPoint(inventoryRect, mousePosition);
+    }
+
+    void DropItem(Slot originalslot)
+    {
+        originalslot.currentItem = null;
+
+        //Find player
+        Transform playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        if(playerTransform == null)
+        {
+            Debug.LogError("Missing 'Player' tag");
+            return;
+        }
+        //Random drop position
+        Vector2 dropOffset = Random.insideUnitCircle.normalized * Random.Range(minDropDistance, maxDropDistance);
+        Vector2 dropPosition = (Vector2)playerTransform.position + dropOffset;
+        //Instantiate drop item and Bounce
+        GameObject dropItem = Instantiate(gameObject, dropPosition, Quaternion.identity);
+        dropItem.GetComponent<BounceEffect>().StartBounce();
+        //Destroy the UI one
+        Destroy(gameObject);
     }
 }

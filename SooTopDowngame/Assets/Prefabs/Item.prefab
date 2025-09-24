@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 8878932236909751062}
   - component: {fileID: 7767733157926612605}
   - component: {fileID: -8269633885930793509}
+  - component: {fileID: -7780924027689934491}
   m_Layer: 5
   m_Name: Item
   m_TagString: Item
@@ -104,6 +105,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a103881a2e11e94e87f262c4be95566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
+  minDropDistance: 2
+  maxDropDistance: 2
 --- !u!114 &8878932236909751062
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +119,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a160607d888d504e963198f6ab29397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
-  ID: 0
+  ID: 1
   Name: Potion
 --- !u!212 &7767733157926612605
 SpriteRenderer:
@@ -212,3 +215,18 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Radius: 0.5
+--- !u!114 &-7780924027689934491
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636755989968898503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d084f6847026b4d9643e9abf72e40f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BounceEffect
+  bounceHeight: 0.3
+  bounceDuration: 0.4
+  bounceCount: 2
