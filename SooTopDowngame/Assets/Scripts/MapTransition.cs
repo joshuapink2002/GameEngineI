@@ -39,6 +39,7 @@ public class MapTransition : MonoBehaviour
 
         // 3) 맵 UI 업데이트 (싱글턴)
         MapController_Manual.Instance?.HighlightArea(mapBoundary.name);
+        MapController_Dynamic.Instance?.UpdateCurrentArea(mapBoundary.name);
     }
 
     void UpdatePlayerPosition(GameObject player)

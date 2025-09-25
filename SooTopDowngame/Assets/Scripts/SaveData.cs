@@ -15,4 +15,13 @@ public class SaveData
     public string mapBoundary; //The boundary name for the map
     public List<InventorySaveData> inventorySaveData;
     public List<InventorySaveData> hotbarSaveData;
+    public List<ChestSaveData> chestSaveData;
+}
+
+[System.Serializable]
+
+public class ChestSaveData
+{
+    public string chestID;
+    public bool isOpened;
 }
