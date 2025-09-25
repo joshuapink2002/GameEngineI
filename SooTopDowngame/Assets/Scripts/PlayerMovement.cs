@@ -20,6 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (PauseController.IsGamePaused)
+        {
+            // 퍼즈 상태: 이동만 멈추고 애니메이터는 건드리지 않음
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
         // 물리 프레임에서 속도 적용
         rb.linearVelocity = moveInput * moveSpeed;
     }
@@ -27,17 +34,21 @@ public class PlayerMovement : MonoBehaviour
     // PlayerInput(Action Events)에서 Move에 연결: PlayerMovement -> Move(InputAction.CallbackContext)
     public void Move(InputAction.CallbackContext context)
     {
+        if (PauseController.IsGamePaused)
+        {
+            // 퍼즈 상태에서는 입력을 무시하고 애니메이터 갱신도 하지 않음
+            return;
+        }
+
         if (context.performed || context.started)
         {
             Vector2 input = context.ReadValue<Vector2>();
 
-            // 데드존
             if (input.magnitude < 0.1f)
                 input = Vector2.zero;
 
-            // 마지막 비영 입력 방향 저장 (0이 되기 전에)
             if (input.sqrMagnitude > 0.0001f)
-                lastMoveDir = input.normalized;
+                lastMoveDir = input.normalized; // 마지막 이동 방향 저장
 
             moveInput = input;
         }
@@ -56,7 +67,7 @@ public class PlayerMovement : MonoBehaviour
             animator.SetFloat("InputX", moveInput.x);
             animator.SetFloat("InputY", moveInput.y);
 
-            // 마지막 방향 (Idle에서 바라볼 방향)
+            // Idle 상태일 때 마지막 바라보던 방향 유지
             animator.SetFloat("LastInputX", lastMoveDir.x);
             animator.SetFloat("LastInputY", lastMoveDir.y);
         }
