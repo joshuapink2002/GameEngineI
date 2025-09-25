@@ -1,9 +1,9 @@
-using Unity.Cinemachine;  // ±ÇÀå ³×ÀÓ½ºÆäÀÌ½º (Unity.Cinemachine ´ë½Å)
+ï»¿using Unity.Cinemachine;  // ê¶Œì¥ ë„¤ì„ìŠ¤í˜ì´ìŠ¤ (Unity.Cinemachine ëŒ€ì‹ )
 using UnityEngine;
 
 public class MapTransition : MonoBehaviour
 {
-    [SerializeField] PolygonCollider2D mapBoundary;   // »õ Ä«¸Ş¶ó °æ°è
+    [SerializeField] PolygonCollider2D mapBoundary;   // ìƒˆ ì¹´ë©”ë¼ ê²½ê³„
     [SerializeField] Direction direction = Direction.Up;
     [SerializeField] float additivePos = 2f;
 
@@ -13,18 +13,18 @@ public class MapTransition : MonoBehaviour
 
     void Awake()
     {
-        confiner = FindAnyObjectByType<CinemachineConfiner2D>(); // Unity 2022+
-        // confiner°¡ nullÀÌ¸é ¾À¿¡ °¡»óÄ«¸Ş¶ó+Confiner°¡ ¾ø´Â »óÅÂ
+        confiner = FindAnyObjectByType<CinemachineConfiner2D>();
+        if (confiner == null)
+            Debug.LogWarning("âš ï¸ CinemachineConfiner2D not found in scene!");
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (!collision.CompareTag("Player")) return;
 
-        // 1) Ä«¸Ş¶ó °æ°è ±³Ã¼
+        // 1) ì¹´ë©”ë¼ ê²½ê³„ êµì²´
         if (confiner && mapBoundary)
         {
-            // CM3 ¼Ó¼º¸í: BoundingShape2D / CM2: m_BoundingShape2D (µÑ ´Ù ´ëÀÀ °¡´É)
             confiner.BoundingShape2D = mapBoundary;
 
 #if CINEMACHINE_3_OR_NEWER
@@ -34,8 +34,11 @@ public class MapTransition : MonoBehaviour
 #endif
         }
 
-        // 2) ÇÃ·¹ÀÌ¾î À§Ä¡ ÀÌµ¿
+        // 2) í”Œë ˆì´ì–´ ìœ„ì¹˜ ì´ë™
         UpdatePlayerPosition(collision.gameObject);
+
+        // 3) ë§µ UI ì—…ë°ì´íŠ¸ (ì‹±ê¸€í„´)
+        MapController_Manual.Instance?.HighlightArea(mapBoundary.name);
     }
 
     void UpdatePlayerPosition(GameObject player)
@@ -50,7 +53,6 @@ public class MapTransition : MonoBehaviour
             case Direction.Right: newPos.x += additivePos; break;
         }
 
-        // Rigidbody2D°¡ ÀÖÀ¸¸é ¹°¸® ÁÂÇ¥·Î ÀÌµ¿ÇÏ´Â °Ô ´õ ¾ÈÁ¤Àû
         var rb = player.GetComponent<Rigidbody2D>();
         if (rb != null) rb.position = newPos;
         else player.transform.position = newPos;
