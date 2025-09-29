@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b27a5aa34e37c8e49b51e3a9591e9228, type: 3}
+  m_Name: GirlDialogue
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue
+  npcName: Girl
+  npcPortrait: {fileID: 21300000, guid: 7ebd37bda36343b41a5283b24508feeb, type: 3}
+  dialogueLines:
+  - Get Out!
+  - I'm in hurry
+  - Arhhh!
+  autoProgressLines: 010100
+  autoProgressDelay: 1.5
+  typingSpeed: 0.025
+  voiceSound: {fileID: 8300000, guid: e3039c6842037cb4690500aff158e820, type: 3}
+  voicePitch: 1
