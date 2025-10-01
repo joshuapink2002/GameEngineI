@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.2D.Animation.Runtime::UnityEngine.U2D.Animation.SpriteLibrarySourceAsset
   m_Library:
-  - m_Name: idle
-    m_Hash: 472167701
+  - m_Name: Idle
+    m_Hash: 1008081451
     m_CategoryList: []
     m_OverrideEntries:
     - m_Name: Idle_0
@@ -126,5 +126,5 @@ MonoBehaviour:
     m_FromMain: 0
     m_EntryOverrideCount: 16
   m_PrimaryLibraryGUID: 
-  m_ModificationHash: 638948671407260769
+  m_ModificationHash: 638949490186163699
   m_Version: 1
