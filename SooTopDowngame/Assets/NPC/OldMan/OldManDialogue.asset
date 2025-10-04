@@ -16,9 +16,20 @@ MonoBehaviour:
   npcPortrait: {fileID: 21300000, guid: 71f947d3f2741f743a1b61469d746cc3, type: 3}
   dialogueLines:
   - Hello there youngman!
-  - Can you help me?
-  autoProgressLines: 0100
+  - Can you help?
+  - Thanks!
+  - I knew you'd help!
+  - Oh... ok....
+  - Maybe next time...
+  autoProgressLines: 010000000000
+  endDialogueLines: 000000010001
   autoProgressDelay: 1.5
   typingSpeed: 0.05
   voiceSound: {fileID: 8300000, guid: ff35f512225343b459a69c95eaa77d53, type: 3}
   voicePitch: 1
+  choices:
+  - dialogueIndex: 1
+    choices:
+    - Yes
+    - No
+    nextDialogueIndexes: 0200000004000000

@@ -18,8 +18,15 @@ MonoBehaviour:
   - Get Out!
   - I'm in hurry
   - Arhhh!
-  autoProgressLines: 010100
+  autoProgressLines: 010101
+  endDialogueLines: 000101
   autoProgressDelay: 1.5
   typingSpeed: 0.025
   voiceSound: {fileID: 8300000, guid: e3039c6842037cb4690500aff158e820, type: 3}
   voicePitch: 1
+  choices:
+  - dialogueIndex: 0
+    choices:
+    - Ok
+    - No
+    nextDialogueIndexes: 0100000002000000
