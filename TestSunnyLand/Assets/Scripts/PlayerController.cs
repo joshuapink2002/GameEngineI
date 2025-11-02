@@ -111,7 +111,6 @@ public class PlayerController : MonoBehaviour
 
     private float moveInput = 0f;
     private bool isGrounded = false;  // 바닥에 닿아있는지 여부
-    private int score = 0;  // 점수 추가
     private Vector3 startPosition; //리스폰시작위치
     void Start()
     {
@@ -208,29 +207,5 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
-    // 아이템 수집 감지 (Trigger)
-    void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Coin"))
-        {
-            score++;  // 점수 증가
-            Debug.Log("코인 획득! 현재 점수: " + score);
-            Destroy(other.gameObject);  // 코인 제거
-        }
-        if (other.CompareTag("Enemy"))
-        {
-            score++;  // 점수 증가
-            Debug.Log("적 처치! 현재 점수: " + score);
-            Destroy(other.gameObject);  // 적 제거
-        }
-        if (other.CompareTag("Finish"))
-        {
-            Debug.Log("🎉🎉🎉 게임 클리어! 🎉🎉🎉");
-            Debug.Log("최종 점수: " + score + "점");
-        
-        // 캐릭터 조작 비활성화
-            enabled = false;
-        }
-    }
-    
+
 }
